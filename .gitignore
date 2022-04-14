@@ -19,3 +19,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+cyf-hotel-react/public/robots.txt
+cyf-hotel-react/package.json
+cyf-hotel-react/package-lock.json
+cyf-hotel-react/public/manifest.json
