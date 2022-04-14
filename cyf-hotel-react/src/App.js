@@ -6,6 +6,8 @@ import TouristInfoCards from "./TouristInfoCards";
 import Footer from "./Footer";
 import Restaurant from "./Restaurant";
 
+let filteredList=[];
+
 const App = () => {
   return (
     <div className="App">
