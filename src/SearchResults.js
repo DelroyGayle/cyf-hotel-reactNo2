@@ -31,8 +31,8 @@ const SearchResults = (props) => {
   };
 
   function handleProfile(event,clickedId) {
-        event.stopPropagation()
-        setCustomerId(clickedId)
+        event.stopPropagation();
+        setCustomerId(clickedId);
         //return `Customer ${clickedId} Profile`;
   }
 

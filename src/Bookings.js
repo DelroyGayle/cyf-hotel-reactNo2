@@ -76,11 +76,11 @@ const Bookings = () => {
               alert(`No Search Results for '${searchVal}'`);
 
         if (searchVal.length === 0 || filteredBookings.length === 0) { // No results - show everything
-               setBookings(wholeData)
+               setBookings(wholeData);
         }    
         
         else {
-               setBookings(filteredBookings) 
+               setBookings(filteredBookings); 
         }
   };
 
