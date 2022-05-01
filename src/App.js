@@ -7,6 +7,7 @@ import Footer from "./Footer";
 import Restaurant from "./Restaurant";
 
 let filteredList=[];
+let globalID = 0;
 
 const App = () => {
   return (

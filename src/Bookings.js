@@ -46,6 +46,7 @@ const Bookings = () => {
                                 throw true;     // generates an exception with the value true
                           }
       })
+      
       .then((data) => {
         // console.log(data);
 

@@ -3,6 +3,13 @@ import moment from "moment";
 import { useState, useEffect } from "react";
 import DateDiff from "./DateDiff.js";
 
+/*
+    This is my solution to stop propagation when the 'Show Profile' button is pressed
+    If globalId is NONZERO do NOT highlight the row
+*/
+
+let globalId = null; 
+
 const SearchResults = (props) => {
 
   const [rows, setRows] = useState([]);
@@ -22,18 +29,24 @@ const SearchResults = (props) => {
 
   // selectClass: OFF "row-not-highlighted", ON "row-highlighted"
   const handleHighlightRow = (rowId)=> {
+    
+    if (globalId) {
+          globalId = null; // Since this variable is NONZERO do NOT highlight the row; however reset this value
+          return;
+    }
+
     if (rows.includes(rowId)) {
         setRows(rows.filter(rowsInArray => rowsInArray !== rowId)); // array without RowId
     }
     else{
         setRows([...rows,rowId]); // array with RowId
-    }
+    }   
   };
 
   function handleProfile(event,clickedId) {
-        event.stopPropagation();
+        globalId=Number(clickedId)
         setCustomerId(clickedId);
-        //return `Customer ${clickedId} Profile`;
+        // REMOVED: return `Customer ${clickedId} Profile`;
   }
 
   return (
@@ -97,12 +110,24 @@ function DisplayCustomerProfile(props) {
 
         useEffect(() => {
                           fetch(`https://cyf-react.glitch.me/customers/${props.theId}`)
-        .then((res) => res.json())
-        // .then((data) => console.log(data));
-        .then((response) => {
+                              .then((response) => {
+                                    let status = response.status;
 
-                          setFetchedDate(response);
-        })
+                                    if (status === 200) // successful FETCH
+                                    {
+                                        return response.json(); // CHAIN THE JSON DATA
+                                    }
+
+                                    else
+                                    {
+                                      // Added Error Handling - Error occurred whilst fetching data
+                                      return <div>{`There is a problem fetching Customer Id ${props.theId} - Status: ${status}`}</div>;
+                                      throw true;     // generates an exception with the value true
+                                    }})
+
+                              .then((response) => {
+                                      setFetchedDate(response);
+                                                  })
         }, [props.theId]);
 
 
